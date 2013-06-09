@@ -9,8 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     FileManager Fmng;
-    Fmng.OpenOutputFile();
     Entity lEntite;
+    lEntite = Fmng.ReadFile();
+    lEntite.AdjustSize();
     Fmng.WriteFile(lEntite.GetLatexFull());
     Fmng.CloseOutputFile();
     system("lualatex  -interaction=nonstopmode test.tex");

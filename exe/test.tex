@@ -1,0 +1,37 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{fontspec}
+\usetikzlibrary{arrows,decorations.markings}
+\usepackage[math-style=upright]{unicode-math}
+\setmathfont{Asana Math} % for math symbols, can be any other OpenType math font
+\begin{document}
+\fontspec{Aegyptus}
+\tikzset{middlearrow/.style={decoration={markings,mark= at position 0.4 with {\arrow{#1}},},postaction={decorate}}}
+\tikzset{bus/.style 2 args={-triangle 45, thin,double, very thin,black!90,decoration={markings,
+  mark=at position {0.4} with {\arrow{|},\node[transform shape,above] {\footnotesize \emph{#1}};}},postaction={decorate}}}
+\tikzset{wire/.style 2 args={-triangle 60},postaction={decorate}}
+\tikzset{ckwire/.style 2 args={-open triangle 60,shorten >=-5pt,},postaction={decorate}}
+\tikzset{Entity/.style 2 args={shape = rectangle,rounded corners=1pt,draw=black, thick,minimum width={1.05*#1 em},minimum height={#2 em},text centered}}
+\begin{tikzpicture}
+\node[text depth=3.2cm,anchor=north east,Entity={9}{10}] (InputGate) at (0,0) {InputGate};
+\node[right] (Clk) at (-3.3,-0.9) {Clk};
+\draw[wire] (-4.5,-0.9) -- (Clk);\node[right] (PxClk) at (-3.3,-1.4) {PxClk};
+\draw[wire] (-4.5,-1.4) -- (PxClk);\node[right] (PxVal) at (-3.3,-1.9) {PxVal};
+\draw[wire] (-4.5,-1.9) -- (PxVal);\node[left] (Col) at (0,-0.9) {Col};
+\draw[bus={2}] (Col) -- (1.2,-0.9);
+\node[left] (Lig) at (0,-1.4) {Lig};
+\draw[bus={2}] (Lig) -- (1.2,-1.4);
+\node[left] (StatusInner) at (0,-1.9) {StatusInner};
+\draw[wire] (StatusInner) -- (1.2,-1.9);
+\node[left] (FirstLine) at (0,-2.4) {FirstLine};
+\draw[wire] (FirstLine) -- (1.2,-2.4);
+\node[left] (FirstRow) at (0,-2.9) {FirstRow};
+\draw[wire] (FirstRow) -- (1.2,-2.9);
+\node[left] (LastRow) at (0,-3.4) {LastRow};
+\draw[wire] (LastRow) -- (1.2,-3.4);
+\end{tikzpicture}
+\end{document}

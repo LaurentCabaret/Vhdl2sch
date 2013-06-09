@@ -5,6 +5,7 @@
 #include "QList"
 #include "input.h"
 #include "output.h"
+#include "QTextStream"
 
 class Entity
 {
@@ -29,7 +30,7 @@ public:
     QList<output> outputs;
     void AdjustHeight();
     void AdjustWidth();
-
+    void AdjustSize();
 };
 
 #endif // ENTITY_H

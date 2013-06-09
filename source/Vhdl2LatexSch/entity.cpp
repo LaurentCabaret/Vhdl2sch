@@ -3,24 +3,9 @@
 #include "math.h"
 
 Entity::Entity()
-{
-    this->name = "Global";
-    width = 6;
-    height = 8;
+{    
     lenght = 1.2;
     topmargin = -0.9;
-
-    CreateOutput("Colo",BUS);
-    CreateOutput("Colu",WIRE);
-
-    CreateInput("Colu",BUS);
-    CreateInput("Line",BUS);
-    CreateInput("Enab",WIRE);
-
-
-    AdjustHeight();
-    AdjustWidth();
-
 }
 
 void Entity::CreateInput(QString label, char type) {
@@ -34,7 +19,8 @@ void Entity::CreateInput(QString label, char type) {
 
 void Entity::CreateOutput(QString label, char type) {
     output Pin;
-    Pin.ioLabel = label;    
+    Pin.ioLabel = label;
+    Pin.posx = 0;
     Pin.posy = topmargin - outputs.size()*0.5;
     Pin.type = type;
     Pin.setSentence();
@@ -87,13 +73,14 @@ QString Entity::GetTikzFull() {
     int i = 0,j = 0;
     tikzFull += GetTikzPreamble();
     tikzFull += GetEntityDescription();
-    while(i<inputs.size()) {        
+    while(i<inputs.size()) {
         inputs[i].reconfigure(-width/2.7);
         inputs[i].setSentence();
         tikzFull += inputs[i].ioSentence;
         i++;
     }
     while(j<outputs.size()) {
+        outputs[j].reconfigure(0);
         outputs[j].setSentence();
         tikzFull += outputs[j].ioSentence;
         j++;
@@ -125,8 +112,8 @@ QString Entity::GetTikzPreamble()
 
 QString Entity::GetEntityDescription()
 {
-    QString entityDescription = "";    
-    entityDescription += QString("\\node[text depth=") + QString::number(height/3.2) + QString("cm,anchor=north east,Entity={")  + QString::number(width) + QString("}{") + QString::number(height) + QString("}] (") + this->name + ") at (0,0) {" + this->name  + "};\n";
+    QString entityDescription = "";
+    entityDescription += QString("\\node[text depth=") + QString::number(height/3.2,'g',2) + QString("cm,anchor=north east,Entity={")  + QString::number(width,'g',2) + QString("}{") + QString::number(height,'g',2) + QString("}] (") + this->name + ") at (0,0) {" + this->name  + "};\n";
     return entityDescription ;
 }
 
@@ -138,16 +125,26 @@ void Entity::AdjustHeight() {
 
 void Entity::AdjustWidth() {
     int i=0,j=0;
-    int insize = 0,globalsize =0, labelsize = this->name.size();
+    int insize = 0,outsize = 0,globalsize =0, labelsize = this->name.size();
     int maxiter = std::max(inputs.size(),outputs.size());
     while(i<maxiter) {
+        insize = 0;
+        outsize = 0;
         if (i<inputs.size())
             insize = inputs[i].ioLabel.size();
         if (i<outputs.size())
-            insize += outputs[i].ioLabel.size();
+            outsize = outputs[i].ioLabel.size();
+        insize = outsize + insize;
         globalsize = std::max(globalsize,insize);
         i++;
     }
 
-    width = (float)(globalsize)*0.6+1;// - (float)(labelsize/2);
+    width = (float)(globalsize)*0.5+1;// - (float)(labelsize/2);
+}
+
+
+void Entity::AdjustSize() {
+    AdjustHeight();
+    AdjustWidth();
+
 }

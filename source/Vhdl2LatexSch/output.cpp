@@ -12,16 +12,16 @@ void output::setSentence()
 {
     if (type == BUS) {
         ioSentence = QString("\\node[left] (") + ioLabel + QString(") at (")
-                            + QString::number(posx) + QString(",") + QString::number(posy)
+                            + QString::number(posx,'g',2) + QString(",") + QString::number(posy,'g',2)
                             + QString(") {") + ioLabel +QString("};\n");
-            ioSentence += "\\draw[bus={2}] (" + ioLabel + ") -- (" + QString::number(posx+lenght) + "," + QString::number(posy) + ");\n";
+            ioSentence += "\\draw[bus={2}] (" + ioLabel + ") -- (" + QString::number(posx+lenght,'g',2) + "," + QString::number(posy,'g',2) + ");\n";
 
     }
     if (type == WIRE) {
         ioSentence = QString("\\node[left] (") + ioLabel + QString(") at (")
-                            + QString::number(posx) + QString(",") + QString::number(posy)
+                            + QString::number(posx,'g',2) + QString(",") + QString::number(posy,'g',2)
                             + QString(") {") + ioLabel +QString("};\n");
-            ioSentence += "\\draw[wire] (" + ioLabel + ") -- (" + QString::number(posx+lenght) + "," + QString::number(posy) + ");\n";
+            ioSentence += "\\draw[wire] (" + ioLabel + ") -- (" + QString::number(posx+lenght,'g',2) + "," + QString::number(posy,'g',2) + ");\n";
 
     }
 }

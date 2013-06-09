@@ -3,6 +3,9 @@
 
 #include "QFile"
 #include "QTextStream"
+#include "entity.h"
+ #include <QStringList>
+
 class FileManager
 {
 public:
@@ -19,7 +22,8 @@ public:
 
     int OpenInputFile();
     int CloseInputFile();
-    QString ReadFile( );
+    Entity ReadFile( );
+    Entity ParseVHDL(QTextStream *ts);
 };
 
 #endif // FILEMANAGER_H
