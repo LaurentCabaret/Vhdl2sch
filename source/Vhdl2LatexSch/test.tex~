@@ -1,0 +1,42 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{fontspec}
+\usetikzlibrary{arrows,decorations.markings}
+\usepackage[math-style=upright]{unicode-math}
+\setmathfont{Asana Math} % for math symbols, can be any other OpenType math font
+\begin{document}
+\fontspec{Aegyptus}
+\tikzset{middlearrow/.style={decoration={markings,mark= at position 0.4 with {\arrow{##1}},},postaction={decorate}}}
+\tikzset{bus/.style ={-triangle 45, thin,double, very thin,black!90,decoration={markings,
+  mark=at position {0.4} with {\arrow{|},\node[above] {#1};}},postaction={decorate}}}
+\tikzset{wire/.style 2 args={-triangle 60},postaction={decorate}}
+\tikzset{ckwire/.style 2 args={-open triangle 60,shorten >=-5pt,},postaction={decorate}}
+\tikzset{Entity/.style 2 args={shape = rectangle,rounded corners=1pt,draw=black, thick,minimum width={1.05*#1 em},minimum height={#2 em},text centered}}
+\begin{tikzpicture}
+\node[text depth=5.9cm,anchor=north east,Entity={7}{19}] (ImageMemoryManager) at (0,0) {ImageMemoryManager};
+\node[right] (Clk) at (-2.6,-0.9) {Clk};
+\draw[wire] (-3.8,-0.9) -- (Clk);\node[right] (PxClk) at (-2.6,-1.4) {PxClk};
+\draw[wire] (-3.8,-1.4) -- (PxClk);\node[right] (rW) at (-2.6,-1.9) {rW};
+\draw[wire] (-3.8,-1.9) -- (rW);\node[right] (Col) at (-2.6,-2.4) {Col};
+\draw[bus={9}] (-3.8,-2.4) -- (Col);\node[right] (Lig) at (-2.6,-2.9) {Lig};
+\draw[bus={9}] (-3.8,-2.9) -- (Lig);\node[right] (En) at (-2.6,-3.4) {En};
+\draw[wire] (-3.8,-3.4) -- (En);\node[right] (StatusInner	) at (-2.6,-3.9) {StatusInner	};
+\draw[wire] (-3.8,-3.9) -- (StatusInner	);\node[right] (FirstLine	) at (-2.6,-4.4) {FirstLine	};
+\draw[wire] (-3.8,-4.4) -- (FirstLine	);\node[right] (FirstRow			) at (-2.6,-4.9) {FirstRow			};
+\draw[wire] (-3.8,-4.9) -- (FirstRow			);\node[right] (LastRow	) at (-2.6,-5.4) {LastRow	};
+\draw[wire] (-3.8,-5.4) -- (LastRow	);\node[right] (LastPixel		) at (-2.6,-5.9) {LastPixel		};
+\draw[wire] (-3.8,-5.9) -- (LastPixel		);\node[right] (LabelNew) at (-2.6,-6.4) {LabelNew};
+\draw[bus = 010] (-3.8,-6.4) -- (LabelNew);\node[left] (LabelE1) at (0,-0.9) {LabelE1};
+\draw[{bus= test}] (LabelE1) -- (1.2,-0.9);
+\node[left] (LabelE2) at (0,-1.4) {LabelE2};
+\draw[bus=10] (LabelE2) -- (1.2,-1.4);
+\node[left] (LabelE3) at (0,-1.9) {LabelE3};
+\draw[bus=10] (LabelE3) -- (1.2,-1.9);
+\node[left] (LabelE4) at (0,-2.4) {LabelE4};
+\draw[bus=10] (LabelE4) -- (1.2,-2.4);
+\end{tikzpicture}
+\end{document}

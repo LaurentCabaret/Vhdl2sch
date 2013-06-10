@@ -1,4 +1,4 @@
-This is LuaTeX, Version beta-0.70.2-2012070300 (TeX Live 2012/Debian) (format=lualatex 2013.2.25)  10 JUN 2013 08:57
+This is LuaTeX, Version beta-0.70.2-2012070300 (TeX Live 2012/Debian) (format=lualatex 2013.2.25)  10 JUN 2013 10:05
  restricted \write18 enabled.
 **test.tex
 (./test.tex
@@ -1606,21 +1606,9 @@ e
 *** you should *not* be loading the inputenc package
 *** XeTeX expects the source to be in UTF8 encoding
 *** some features of other encodings may conflict, resulting in poor output.
-luaotfload | Updating the font names database:
-luaotfload | Scanning TEXMF and OS fonts...
-luaotfload | Font names database saved: %s 
-: /home/laurent/.texmf-var/luatex-cache/generic/names/otfl-names.lua
 luaotfload | load font: font family='aegyptus', subfamily='regular' found: Aegy
 ptus313.ttf(load: /home/laurent/.texmf-var/luatex-cache/generic/fonts/otf/temp-
 aegyptus313.lua)
-luaotfload | load otf: loading: /usr/share/fonts/truetype/ttf-ancient-scripts/A
-egyptus313.ttf (hash: aegyptus313)
-luaotfload | load otf: font loaded okay
-luaotfload | load otf: file size: 5867644
-luaotfload | load otf: enhancing ...
-luaotfload | load otf: saving in cache: /usr/share/fonts/truetype/ttf-ancient-s
-cripts/Aegyptus313.ttf(save: /home/laurent/.texmf-var/luatex-cache/generic/font
-s/otf/temp-aegyptus313.lua)
 luaotfload | load font: font family='aegyptus', subfamily='regular' found: Aegy
 ptus313.ttf
 fontspec: script 'latn' exists in font 'Aegyptus'
@@ -1666,36 +1654,24 @@ ptus313.ttf
 luaotfload | load font: auto-selecting default features for script: dflt (was l
 atn)
 luaotfload | load font: font family='aegyptus', subfamily='regular' found: Aegy
-ptus313.ttf
-
-LaTeX Font Warning: Font shape `EU2/Aegyptus(0)/m/it' undefined
-(Font)              using `EU2/Aegyptus(0)/m/n' instead on input line 25.
-
-luaotfload | load font: auto-selecting default features for script: dflt (was l
-atn)
-luaotfload | load font: font family='aegyptus', subfamily='regular' found: Aegy
 ptus313.ttf [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./test.aux)
-
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
- )
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./test.aux) )
 
 Here is how much of LuaTeX's memory you used:
- 30709 strings out of 495091
+ 30756 strings out of 495091
  125177,794899 words of node,token memory allocated
- 5080 words of node memory still in use:
-   83 hlist, 2 vlist, 2 rule, 8 disc, 174 glue, 3 kern, 75 glyph, 531 attribute
-, 62 glue_spec, 458 attribute_list, 1 write, 247 pdf_literal, 8 pdf_colorstack 
-nodes
-   avail lists: 1:53,2:21,3:249,4:204,5:2,6:83,7:2,8:3,9:447,10:981,11:512,12:2
-28
- 33137 multiletter control sequences out of 65536+200000
- 25 fonts using 5641359 bytes
- 56i,7n,69p,1036b,1015s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 10242 words of node memory still in use:
+   155 hlist, 2 vlist, 2 rule, 18 disc, 362 glue, 1 kern, 153 glyph, 1125 attri
+bute, 84 glue_spec, 979 attribute_list, 1 write, 529 pdf_literal, 18 pdf_colors
+tack nodes
+   avail lists: 1:53,2:21,3:531,4:402,5:3,6:161,7:2,8:3,9:375,10:971,11:512,12:
+228
+ 33185 multiletter control sequences out of 65536+200000
+ 25 fonts using 5641039 bytes
+ 56i,7n,69p,1036b,989s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/fonts/truetype/ttf-ancient-scripts/Aegyptus313.ttf>
-Output written on test.pdf (1 page, 12149 bytes).
+Output written on test.pdf (1 page, 13816 bytes).
 
 PDF statistics: 18 PDF objects out of 1000 (max. 8388607)
  11 compressed objects within 1 object stream

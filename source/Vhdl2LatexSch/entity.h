@@ -24,8 +24,8 @@ public:
     QString GetTikzPreamble();
     QString GetTikzFull();
     QString GetEntityDescription();
-    void CreateInput(QString label,char type);
-    void CreateOutput(QString label, char type);
+    void CreateInput(QString label,char type, int size);
+    void CreateOutput(QString label, char type, int size);
     QList<input> inputs;
     QList<output> outputs;
     void AdjustHeight();

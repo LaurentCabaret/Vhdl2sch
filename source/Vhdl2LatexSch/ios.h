@@ -17,6 +17,7 @@ public:
     void setPosy(int );
     float posx,posy;
     char type;
+    int size;
     void reconfigure(float posx);
     float lenght;
 

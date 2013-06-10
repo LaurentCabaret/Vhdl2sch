@@ -8,21 +8,23 @@ Entity::Entity()
     topmargin = -0.9;
 }
 
-void Entity::CreateInput(QString label, char type) {
-    input In1;
-    In1.ioLabel = label;
-    In1.posy = topmargin - inputs.size()*0.5;
-    In1.type = type;
-    In1.setSentence();
-    inputs.append(In1);
+void Entity::CreateInput(QString label, char type, int size) {
+    input Pin;
+    Pin.ioLabel = label;
+    Pin.posy = topmargin - inputs.size()*0.5;
+    Pin.type = type;
+    Pin.setSentence();
+    Pin.size = size;
+    inputs.append(Pin);
 }
 
-void Entity::CreateOutput(QString label, char type) {
+void Entity::CreateOutput(QString label, char type, int size) {
     output Pin;
     Pin.ioLabel = label;
     Pin.posx = 0;
     Pin.posy = topmargin - outputs.size()*0.5;
     Pin.type = type;
+    Pin.size = size;
     Pin.setSentence();
     outputs.append(Pin);
 }
@@ -99,8 +101,8 @@ QString Entity::GetTikzPreamble()
     QString tikzPreample = "";
 
     tikzPreample += QString("\\tikzset{middlearrow/.style={decoration={markings,mark= at position 0.4 with {\\arrow{#1}},},postaction={decorate}}}\n");
-    tikzPreample += QString("\\tikzset{bus/.style 2 args={-triangle 45, thin,double, very thin,black!90,decoration={markings,\n");
-    tikzPreample += QString("  mark=at position {0.4} with {\\arrow{|},\\node[transform shape,above] {\\footnotesize \\emph{#1}};}},postaction={decorate}}}\n");
+    tikzPreample += QString("\\tikzset{bus/.style ={-triangle 45, thin,double, very thin,black!90,decoration={markings,\n");
+    tikzPreample += QString("  mark=at position {0.4} with {\\arrow{|},\\node[transform shape,above] {\\footnotesize #1};}},postaction={decorate}}}\n");
     tikzPreample += QString("\\tikzset{wire/.style 2 args={-triangle 60},postaction={decorate}}\n");
     tikzPreample += QString("\\tikzset{ckwire/.style 2 args={-open triangle 60,shorten >=-5pt,},postaction={decorate}}\n");
     tikzPreample += QString("\\tikzset{Entity/.style 2 args={shape = rectangle,rounded corners=1pt,draw=black, thick,minimum width={1.05*#1 em},minimum height={#2 em},text centered}}\n");

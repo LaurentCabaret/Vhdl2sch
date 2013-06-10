@@ -111,7 +111,7 @@ Entity FileManager::ParseVHDL(QTextStream *ts) {
                 Type.remove(";");
                 Type = Type.toUpper();
                 if (Type == "STD_LOGIC")
-                    Ent.CreateInput(Name,WIRE);
+                    Ent.CreateInput(Name,WIRE,1);
                 else {
                     if (Type.contains("STD_LOGIC_VECTOR")) {
                         Type.remove("STD_LOGIC_VECTOR");
@@ -119,7 +119,7 @@ Entity FileManager::ParseVHDL(QTextStream *ts) {
                             l = Type.split("DOWNTO");
                             busSize = l[0].toInt() + l[1].toInt() + 1;
                         }
-                        Ent.CreateInput(Name,BUS);
+                        Ent.CreateInput(Name,BUS,busSize);
                     }
                 }
             }
@@ -141,7 +141,7 @@ Entity FileManager::ParseVHDL(QTextStream *ts) {
                 Type.remove(";");
                 Type = Type.toUpper();
                 if (Type == "STD_LOGIC")
-                    Ent.CreateOutput(Name,WIRE);
+                    Ent.CreateOutput(Name,WIRE,1);
                 else {
                     if (Type.contains("STD_LOGIC_VECTOR")) {
                         Type.remove("STD_LOGIC_VECTOR");
@@ -149,7 +149,7 @@ Entity FileManager::ParseVHDL(QTextStream *ts) {
                             l = Type.split("DOWNTO");
                             busSize = l[0].toInt() + l[1].toInt() + 1;
                         }
-                        Ent.CreateOutput(Name,BUS);
+                        Ent.CreateOutput(Name,BUS,busSize);
                     }
                 }
             }
