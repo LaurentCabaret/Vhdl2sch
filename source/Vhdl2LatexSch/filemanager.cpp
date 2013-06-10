@@ -3,10 +3,10 @@
 
 FileManager::FileManager()
 {
-    outputfilename = QString("./test.tex");
-    outputfile.setFileName(outputfilename);
     inputfilename = QString("./test.vhd");
     inputfile.setFileName(inputfilename);
+    outputfilename = QString("./schematic.tex");
+    outputfile.setFileName(outputfilename);
     OpenInputFile();
     CloseInputFile();
     OpenOutputFile();
@@ -126,6 +126,36 @@ Entity FileManager::ParseVHDL(QTextStream *ts) {
 
             if (line.contains(": out", Qt::CaseInsensitive)) {
                 l = line.split(": out");
+                Name = l[0];
+                Name.remove("port");
+                Name.remove("(");
+                Name.remove(")");
+                Name.remove(" ");
+                Name.remove("\t");
+                Name.remove("_");
+
+                Type = l[1];
+                Type.remove(" ");
+                Type.remove("(");
+                Type.remove(")");
+                Type.remove(";");
+                Type = Type.toUpper();
+                if (Type == "STD_LOGIC")
+                    Ent.CreateOutput(Name,WIRE,1);
+                else {
+                    if (Type.contains("STD_LOGIC_VECTOR")) {
+                        Type.remove("STD_LOGIC_VECTOR");
+                        if (Type.contains("DOWNTO", Qt::CaseInsensitive)) {
+                            l = Type.split("DOWNTO");
+                            busSize = l[0].toInt() + l[1].toInt() + 1;
+                        }
+                        Ent.CreateOutput(Name,BUS,busSize);
+                    }
+                }
+            }
+
+            if (line.contains(": buffer", Qt::CaseInsensitive)) {
+                l = line.split(": buffer");
                 Name = l[0];
                 Name.remove("port");
                 Name.remove("(");
