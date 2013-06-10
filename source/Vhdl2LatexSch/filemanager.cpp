@@ -102,6 +102,7 @@ Entity FileManager::ParseVHDL(QTextStream *ts) {
                 Name.remove("(");
                 Name.remove(")");
                 Name.remove(" ");
+                Name.remove("\t");
                 Name.remove("_");
 
                 Type = l[1];
