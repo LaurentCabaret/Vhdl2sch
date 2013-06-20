@@ -1,5 +1,6 @@
 #include "filemanager.h"
 #include "QDebug"
+#include <QRegExpValidator>
 
 FileManager::FileManager()
 {
@@ -69,10 +70,11 @@ Entity FileManager::ReadFile() {
 Entity FileManager::ParseVHDL(QTextStream *ts) {
     QString line;
     Entity Ent;
-    unsigned int busSize;
+    QString busSize;
     QString EntName;
     QString Name;
     QString Type;
+    char busType;
     QStringList l;
     bool flag = true;
     while (flag == true) {
@@ -96,98 +98,95 @@ Entity FileManager::ParseVHDL(QTextStream *ts) {
             if (line.contains(": in", Qt::CaseInsensitive)) {
                 l = line.split(": in");
                 Name = l[0];
-                Name.remove("port");
-                Name.remove("Port");
-                Name.remove("PORT");
-                Name.remove("(");
-                Name.remove(")");
-                Name.remove(" ");
-                Name.remove("\t");
-                Name.remove("_");
-
                 Type = l[1];
-                Type.remove(" ");
-                Type.remove("(");
-                Type.remove(")");
-                Type.remove(";");
-                Type = Type.toUpper();
-                if (Type == "STD_LOGIC")
-                    Ent.CreateInput(Name,WIRE,1);
-                else {
-                    if (Type.contains("STD_LOGIC_VECTOR")) {
-                        Type.remove("STD_LOGIC_VECTOR");
-                        if (Type.contains("DOWNTO", Qt::CaseInsensitive)) {
-                            l = Type.split("DOWNTO");
-                            busSize = l[0].toInt() + l[1].toInt() + 1;
-                        }
-                        Ent.CreateInput(Name,BUS,busSize);
-                    }
-                }
+                CleanUpNameAndType(&Name,&Type);
+                CheckWireType(&busSize,&busType,&Type);
+                Ent.CreateInput(Name,busType,busSize);
             }
+        }
 
-            if (line.contains(": out", Qt::CaseInsensitive)) {
-                l = line.split(": out");
-                Name = l[0];
-                Name.remove("port");
-                Name.remove("(");
-                Name.remove(")");
-                Name.remove(" ");
-                Name.remove("\t");
-                Name.remove("_");
+        if (line.contains(": out", Qt::CaseInsensitive)) {
+            l = line.split(": out");
+            Name = l[0];
+            Type = l[1];
+            CleanUpNameAndType(&Name,&Type);
+            CheckWireType(&busSize,&busType,&Type);
+            Ent.CreateOutput(Name,busType,busSize);
+        }
 
-                Type = l[1];
-                Type.remove(" ");
-                Type.remove("(");
-                Type.remove(")");
-                Type.remove(";");
-                Type = Type.toUpper();
-                if (Type == "STD_LOGIC")
-                    Ent.CreateOutput(Name,WIRE,1);
-                else {
-                    if (Type.contains("STD_LOGIC_VECTOR")) {
-                        Type.remove("STD_LOGIC_VECTOR");
-                        if (Type.contains("DOWNTO", Qt::CaseInsensitive)) {
-                            l = Type.split("DOWNTO");
-                            busSize = l[0].toInt() + l[1].toInt() + 1;
-                        }
-                        Ent.CreateOutput(Name,BUS,busSize);
-                    }
-                }
-            }
 
-            if (line.contains(": buffer", Qt::CaseInsensitive)) {
-                l = line.split(": buffer");
-                Name = l[0];
-                Name.remove("port");
-                Name.remove("(");
-                Name.remove(")");
-                Name.remove(" ");
-                Name.remove("\t");
-                Name.remove("_");
-
-                Type = l[1];
-                Type.remove(" ");
-                Type.remove("(");
-                Type.remove(")");
-                Type.remove(";");
-                Type = Type.toUpper();
-                if (Type == "STD_LOGIC")
-                    Ent.CreateOutput(Name,WIRE,1);
-                else {
-                    if (Type.contains("STD_LOGIC_VECTOR")) {
-                        Type.remove("STD_LOGIC_VECTOR");
-                        if (Type.contains("DOWNTO", Qt::CaseInsensitive)) {
-                            l = Type.split("DOWNTO");
-                            busSize = l[0].toInt() + l[1].toInt() + 1;
-                        }
-                        Ent.CreateOutput(Name,BUS,busSize);
-                    }
-                }
-            }
+        if (line.contains(": buffer", Qt::CaseInsensitive)) {
+            l = line.split(": buffer");
+            Name = l[0];
+            Type = l[1];
+            CleanUpNameAndType(&Name,&Type);
+            Name = l[0];
+            Type = l[1];
+            CleanUpNameAndType(&Name,&Type);
+            CheckWireType(&busSize,&busType,&Type);
+            Ent.CreateOutput(Name,busType,busSize);
 
         }
     }
+
     return Ent;
 
 }
 
+void FileManager::CleanUpNameAndType(QString *Name,QString *Type) {
+    Name->remove("port");
+    Name->remove("Port");
+    Name->remove("PORT");
+    Name->remove("(");
+    Name->remove(")");
+    Name->remove(" ");
+    Name->remove("\t");
+    Name->remove("_");
+
+    Type->remove(" ");
+    Type->remove("(");
+    Type->remove(")");
+    Type->remove(";");
+    *Type = Type->toUpper();
+}
+
+
+void FileManager::CheckWireType(QString *busSize, char *busType,QString *Type) {
+
+    QRegExp rx( "[A-Z]" );
+    QRegExpValidator validator(rx,0);
+    int pos = 0;
+    QStringList l,l2;
+    QString UpperBusNumber;
+    if (*Type == "STD_LOGIC") {
+        *busType = WIRE;
+        *busSize = 1;
+    }
+    else {
+        if (Type->contains("STD_LOGIC_VECTOR")) {
+            Type->remove("STD_LOGIC_VECTOR");
+            if (Type->contains("DOWNTO", Qt::CaseInsensitive)) {
+                l = Type->split("DOWNTO");
+                UpperBusNumber = l[0];
+                if (UpperBusNumber.contains("-")) {
+                    l2 = UpperBusNumber.split("-");
+                    UpperBusNumber = l2[0];
+                    if (UpperBusNumber.count(rx)) {
+                        *busSize = UpperBusNumber.toLower();
+                        (*busSize)[0] = (*busSize)[0].toUpper();
+                    }
+                    else {
+                        *busSize = QString::number(l2[0].toInt() - l2[1].toInt() - l[1].toInt() + 1);
+                    }
+                }
+                else
+                    *busSize = QString::number(l[0].toInt() - l[1].toInt() + 1);
+            }
+            else if (Type->contains("TO", Qt::CaseInsensitive)) {
+                l = Type->split("TO");
+                *busSize = QString::number(l[1].toInt() - l[0].toInt() + 1);
+            }
+            *busType = BUS;
+        }
+    }
+}

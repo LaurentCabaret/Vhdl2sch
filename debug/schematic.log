@@ -1,4 +1,4 @@
-This is LuaTeX, Version beta-0.70.2-2012070300 (TeX Live 2012/Debian) (format=lualatex 2013.5.19)  20 JUN 2013 12:47
+This is LuaTeX, Version beta-0.70.2-2012070300 (TeX Live 2012/Debian) (format=lualatex 2013.5.19)  20 JUN 2013 14:45
  restricted \write18 enabled.
 **schematic.tex
 (./schematic.tex
@@ -1668,19 +1668,19 @@ ptus313.ttf [1
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./schematic.aux) )
 
 Here is how much of LuaTeX's memory you used:
- 30725 strings out of 494125
+ 30734 strings out of 494125
  125177,794899 words of node,token memory allocated
- 6246 words of node memory still in use:
-   101 hlist, 2 vlist, 2 rule, 13 disc, 204 glue, 1 kern, 110 glyph, 668 attrib
-ute, 65 glue_spec, 560 attribute_list, 1 write, 295 pdf_literal, 8 pdf_colorsta
-ck nodes
-   avail lists: 1:53,2:21,3:297,4:234,5:3,6:118,7:2,8:3,9:429,10:976,11:512,12:
+ 7038 words of node memory still in use:
+   113 hlist, 2 vlist, 2 rule, 13 disc, 234 glue, 1 kern, 118 glyph, 758 attrib
+ute, 68 glue_spec, 643 attribute_list, 1 write, 345 pdf_literal, 10 pdf_colorst
+ack nodes
+   avail lists: 1:53,2:21,3:347,4:266,5:3,6:126,7:2,8:3,9:417,10:976,11:512,12:
 228
- 33350 multiletter control sequences out of 65536+200000
+ 33359 multiletter control sequences out of 65536+200000
  25 fonts using 5641039 bytes
  56i,7n,69p,1041b,983s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/fonts/truetype/ttf-ancient-scripts/Aegyptus313.ttf>
-Output written on schematic.pdf (1 page, 12798 bytes).
+Output written on schematic.pdf (1 page, 13157 bytes).
 
 PDF statistics: 18 PDF objects out of 1000 (max. 8388607)
  11 compressed objects within 1 object stream

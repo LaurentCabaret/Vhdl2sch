@@ -15,7 +15,7 @@ void output::setSentence()
         ioSentence = QString("\\node[left] (") + ioLabel + QString(") at (")
                             + QString::number(posx,'g',2) + QString(",") + QString::number(posy,'g',2)
                             + QString(") {") + ioLabel +QString("};\n");
-            ioSentence += "\\draw[bus={" + QString::number(size) + "}] (" + ioLabel + ") -- (" + QString::number(posx+lenght,'g',2) + "," + QString::number(posy,'g',2) + ");\n";
+            ioSentence += "\\draw[bus={" + size + "}] (" + ioLabel + ") -- (" + QString::number(posx+lenght,'g',2) + "," + QString::number(posy,'g',2) + ");\n";
 
     }
     if (type == WIRE) {

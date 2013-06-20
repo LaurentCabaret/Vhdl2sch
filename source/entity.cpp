@@ -8,7 +8,7 @@ Entity::Entity()
     topmargin = -0.9;
 }
 
-void Entity::CreateInput(QString label, char type, int size) {
+void Entity::CreateInput(QString label, char type, QString size) {
     input Pin;
     Pin.ioLabel = label;
     Pin.posy = topmargin - inputs.size()*0.5;
@@ -18,7 +18,7 @@ void Entity::CreateInput(QString label, char type, int size) {
     inputs.append(Pin);
 }
 
-void Entity::CreateOutput(QString label, char type, int size) {
+void Entity::CreateOutput(QString label, char type, QString size) {
     output Pin;
     Pin.ioLabel = label;
     Pin.posx = 0;

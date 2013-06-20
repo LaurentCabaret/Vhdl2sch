@@ -17,7 +17,7 @@ public:
     void setPosy(int );
     float posx,posy;
     char type;
-    int size;
+    QString size;
     void reconfigure(float posx);
     float lenght;
 

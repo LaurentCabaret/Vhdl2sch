@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
        }
      else
        {
-             Fmng.inputfilename = "test.vhd";
+             Fmng.inputfilename = "demo.vhd";
        }
     Fmng.inputfile.setFileName(Fmng.inputfilename);
 

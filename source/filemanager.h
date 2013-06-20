@@ -24,6 +24,8 @@ public:
     int CloseInputFile();
     Entity ReadFile( );
     Entity ParseVHDL(QTextStream *ts);
+    void CleanUpNameAndType(QString *Name,QString *Type);
+    void CheckWireType(QString *busSize, char *busType,QString *Type);
 };
 
 #endif // FILEMANAGER_H
