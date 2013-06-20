@@ -1,55 +1,34 @@
-----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date:    22:23:14 05/29/2013 
--- Design Name: 
 -- Module Name:    InputGate - Behavioral 
--- Project Name: 
--- Target Devices: 
--- Tool versions: 
--- Description: 
---
--- Dependencies: 
---
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
---
-----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
 
 entity InputGate is
+  Generic (
+    wSize     :integer  := 9;
+    hSize     :integer  := 9;
+    imgWidth  : integer := 512;         -- Largeur de l'image
+    imgHeight : integer := 512);        -- Hauteur de l'image    
   Port ( Clk            : in  STD_LOGIC;
          PxClk          : in  STD_LOGIC;
          PxVal          : in  STD_LOGIC;
          PxValOut       : out  STD_LOGIC;
-         Col           	: out    std_logic_vector (9-1 downto 0);
-         Cal           	: out    std_logic_vector (Size-1 downto 0);
-         Lig          	: out    std_logic_vector (0 to 12);
+         Col           	: out    std_logic_vector (wSize-1 downto 0);
+         Lig          	: out    std_logic_vector (hSize-1 downto 0);
          StatusInner   	: out   std_logic;
          UpLeftCorner   : out   std_logic;	 
          FirstLine    	: out   std_logic;
          FirstRow	: out   std_logic;
          LastRow	: out   std_logic;
-         LastPixel 	: out   std_logic			  
+         LastPixel 	: out   std_logic;			  
+			FirstPass 	: out   std_logic	:= '0'		  
          );
 end InputGate;
 
 architecture Behavioral of InputGate is
-  CONSTANT LargeurBits : integer :=9;
-  CONSTANT HauteurBits : integer :=9;
+  CONSTANT LargeurBits : integer :=wSize;
+  CONSTANT HauteurBits : integer :=hSize;
   COMPONENT AccessManager IS
 
     generic (
@@ -77,13 +56,15 @@ architecture Behavioral of InputGate is
   SIGNAL L_Add :  std_logic_vector (HauteurBits-1 downto 0) := (others=>'0');
   SIGNAL SigLastRow :  std_logic := '0';
   SIGNAL SigLastPixel :  std_logic := '0';
+  SIGNAL fPass :  std_logic := '1';
+  
   
 begin
   AM1: AccessManager GENERIC MAP(
     hBusSize => LargeurBits,
     vBusSize => HauteurBits,
-    imgWidth => 512,
-    imgHeight => 512
+    imgWidth => imgWidth,
+    imgHeight => imgHeight
     )
     PORT MAP(
       C_Add 				=> C_Add,
@@ -99,7 +80,7 @@ begin
 
   PxClkEventManager: process(Clk)
     variable flag : std_logic := '1';
-  begin
+  begin 
     if Clk'Event and Clk='1' then 
       if (PxClk = '1' and flag = '0') then CleanPxClk <='1';
                                            flag:='1';
@@ -111,13 +92,20 @@ begin
     end if;
   end process;
 
+  FirstPass <= fPass;
   PixelCounter: process(Clk)
-    variable flag : std_logic := '1';
-  begin
+   variable flag : std_logic := '1';
+	variable flagPass : std_logic := '0';
+   begin
     if Clk'Event and Clk='1' then 
       if CleanPxClk = '1' then 
         if SigLastRow='1' then C_Add <= (others=>'0');
                                if SigLastPixel ='1' then L_Add <=  (others=>'0');
+																			if flagPass = '0' then fPass <= '0';
+																										  flagPass := '1';
+																			else fPass <= '1';
+																				  flagPass := '0';
+																			end if;
                                else L_Add <= L_Add + 1;
                                end if;
         else C_Add <= C_Add + 1;												

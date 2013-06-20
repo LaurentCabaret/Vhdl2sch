@@ -95,6 +95,12 @@ Entity FileManager::ParseVHDL(QTextStream *ts) {
         line = l[0];
 
         if (flag==false) {
+            if (line.contains("generic", Qt::CaseInsensitive)) {
+                while (1) {
+                    line = ts->readLine();
+                    if (line.contains(")", Qt::CaseInsensitive)) {line = ts->readLine();break;}
+                }
+            }
             if (line.contains(": in", Qt::CaseInsensitive)) {
                 l = line.split(": in");
                 Name = l[0];
