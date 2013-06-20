@@ -38,10 +38,9 @@ int main(int argc, char *argv[])
     Fmng.CloseOutputFile();
     QString Command;
     l = Fmng.inputfilename.split(".");
-    Command = "cp schematic.pdf " + l[0] + ".pdf";
-
-    system("lualatex  -interaction=nonstopmode schematic.tex");
-    system("evince schematic.pdf");
+    system("lualatex  -interaction=batchmode schematic.tex");
+    //system("evince schematic.pdf");
+    Command = "mv schematic.pdf " + l[0] + ".pdf";
     system(qPrintable(Command));
-    return a.exec();
+    //return a.exec();
 }
