@@ -76,7 +76,7 @@ QString Entity::GetTikzFull() {
     tikzFull += GetTikzPreamble();
     tikzFull += GetEntityDescription();
     while(i<inputs.size()) {
-        inputs[i].reconfigure(-width/2.7);
+        inputs[i].reconfigure(-width*10./27.);
         inputs[i].setSentence();
         tikzFull += inputs[i].ioSentence;
         i++;
@@ -115,7 +115,7 @@ QString Entity::GetTikzPreamble()
 QString Entity::GetEntityDescription()
 {
     QString entityDescription = "";
-    entityDescription += QString("\\node[text depth=") + QString::number(height/3.2,'g',2) + QString("cm,anchor=north east,Entity={")  + QString::number(width,'g',2) + QString("}{") + QString::number(height,'g',2) + QString("}] (") + this->name + ") at (0,0) {" + this->name  + "};\n";
+    entityDescription += QString("\\node[text depth=") + QString::number(height/3.2,'g',4) + QString("cm,anchor=north east,Entity={")  + QString::number(width*1,'g',4) + QString("}{") + QString::number(height,'g',3) + QString("}] (") + this->name + ") at (0,0) {" + this->name  + "};\n";
     return entityDescription ;
 }
 

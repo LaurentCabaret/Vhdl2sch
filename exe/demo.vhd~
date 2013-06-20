@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date:    22:23:14 05/29/2013 
+-- Create Date:    17:02:07 05/02/2013 
 -- Design Name: 
--- Module Name:    InputGate - Behavioral 
+-- Module Name:    ImageMemoryManager - Behavioral 
 -- Project Name: 
 -- Target Devices: 
 -- Tool versions: 
@@ -18,8 +18,9 @@
 --
 ----------------------------------------------------------------------------------
 library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-USE ieee.std_logic_unsigned.ALL;
+use IEEE.STD_LOGIC_1164.all;
+--use IEEE.std_logic_arith;
+use IEEE.std_logic_unsigned.All;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -30,107 +31,115 @@ USE ieee.std_logic_unsigned.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity InputGate is
-  Port ( Clk            : in  STD_LOGIC;
-         PxClk          : in  STD_LOGIC;
-         PxVal          : in  STD_LOGIC;
-         PxValOut       : out  STD_LOGIC;
-         Col           	: out    std_logic_vector (9-1 downto 0);
-         Cal           	: out    std_logic_vector (bus-1 downto 0);
-         Lig          	: out    std_logic_vector (0 to 12);
-         StatusInner   	: out   std_logic;
-         UpLeftCorner   : out   std_logic;	 
-         FirstLine    	: out   std_logic;
-         FirstRow	: out   std_logic;
-         LastRow	: out   std_logic;
-         LastPixel 	: out   std_logic			  
-         );
-end InputGate;
-
-architecture Behavioral of InputGate is
-  CONSTANT LargeurBits : integer :=9;
-  CONSTANT HauteurBits : integer :=9;
-  COMPONENT AccessManager IS
-
-    generic (
-      hBusSize : integer range 0 to 11;
-      vBusSize : integer range 0 to 11;
-      imgWidth : integer range 0 to 1920;
-      imgHeight : integer range 0 to 1080
-      );
-
-    port (        
-      C_Add             : in    std_logic_vector (hBusSize-1 downto 0);
-      L_Add             : in    std_logic_vector (vBusSize-1 downto 0);
-      StatusInner       : out   std_logic;
-      UpLeftCorner      : out   std_logic;	 
-      FirstLine         : out   std_logic;
-      FirstRow	       : out   std_logic;
-      LastRow	       	 : out   std_logic;
-      LastPixel	       : out   std_logic
-      );
-
-  END COMPONENT;
-
-  signal CleanPxClk : std_logic :='0';
-  SIGNAL C_Add :  std_logic_vector (LargeurBits-1 downto 0) := (others=>'0');
-  SIGNAL L_Add :  std_logic_vector (HauteurBits-1 downto 0) := (others=>'0');
-  SIGNAL SigLastRow :  std_logic := '0';
-  SIGNAL SigLastPixel :  std_logic := '0';
+entity ImageMemoryManager is
+  generic (
+    wSize     :integer  := 9;
+    hSize     :integer  := 9;
+	 Size     :integer  := 9;
+    imgWidth  : integer := 512;         -- Largeur de l'image
+    imgHeight : integer := 512);        -- Hauteur de l'image
   
+  port (Clk             : in    std_logic;
+        PxClk           : in    std_logic;
+        rW              : in    std_logic;     --      0 --> read / 1 --> WRITE
+        Col             : in    std_logic_vector (wSize-1 downto 0);
+        Lig             : in    std_logic_vector (hSize-1 downto 0);
+        En              : in    std_logic;
+        StatusInner   	: in   std_logic;
+        UpLeftCorner   	: in   std_logic;	 
+        FirstLine    	: in   std_logic;
+        FirstRow 			: in   std_logic;
+        LastRow	      : in   std_logic;
+        LastPixel 		: in   std_logic;        
+        Label_e1        : out   std_logic_vector (Size-1 downto 0);
+        Label_e2        : out   std_logic_vector (Size-1 downto 0);
+        Label_e3        : out   std_logic_vector (Size-1 downto 0);
+        Label_e4        : out   std_logic_vector (Size-1 downto 0);
+        Label_New       : in    std_logic_vector (Size-1 downto 0);
+		  FirstPass    	: in   std_logic
+		  );
+end ImageMemoryManager;
+
+
+architecture Behavioral of ImageMemoryManager is
+  
+  type MemLabel is array (0 to imgWidth-1,0 to imgHeight-1) of std_logic_vector(9 downto 0);  
+  signal ImgLabel : MemLabel := ((others=> (others=>"0000000000")));
+  signal iH  : integer := 0;
+  signal iV  : integer := 0;
 begin
-  AM1: AccessManager GENERIC MAP(
-    hBusSize => LargeurBits,
-    vBusSize => HauteurBits,
-    imgWidth => 512,
-    imgHeight => 512
-    )
-    PORT MAP(
-      C_Add 				=> C_Add,
-      L_Add 				=> L_Add,
-      StatusInner 		=> StatusInner,
-      UpLeftCorner 		=> UpLeftCorner,
-      FirstLine 			=> FirstLine,						
-      FirstRow 			=> FirstRow,
-      LastRow 				=> SigLastRow ,
-      LastPixel			=> SigLastPixel
-      );
 
-
-  PxClkEventManager: process(Clk)
-    variable flag : std_logic := '1';
+  -- purpose: Gestion de la mémoire
+  -- type   : combinational
+  -- inputs : CLK,rw
+  -- outputs: Label_e1/e2/e3/e4
+  
+  manager : process (CLK,Col,Lig) is
   begin
-    if Clk'Event and Clk='1' then 
-      if (PxClk = '1' and flag = '0') then CleanPxClk <='1';
-                                           flag:='1';
-      elsif PxClk = '0' then flag:='0'; 
-                             CleanPxClk <='0';
-      elsif PxClk = '1' and flag = '1' then CleanPxClk <='0';
-                                            flag:='1';
-      end if;
-    end if;
-  end process;
-
-  PixelCounter: process(Clk)
-    variable flag : std_logic := '1';
-  begin
-    if Clk'Event and Clk='1' then 
-      if CleanPxClk = '1' then 
-        if SigLastRow='1' then C_Add <= (others=>'0');
-                               if SigLastPixel ='1' then L_Add <=  (others=>'0');
-                               else L_Add <= L_Add + 1;
-                               end if;
-        else C_Add <= C_Add + 1;												
+    iV <= conv_integer(Col);
+    iH <= conv_integer(Lig);
+    if (CLK'event and CLK = '1') then		
+	 if FirstPass ='1' then     -- Mode ecriture   		 
+      if rW='0' then     -- Mode ecriture   		 
+        if StatusInner='1' then   	-- Si on est sur aucun bord 
+          Label_e1 <= ImgLabel(iH-1,iV-1);
+          Label_e2 <= ImgLabel(iH-1,iV  );
+          Label_e3 <= ImgLabel(iH-1,iV+1);
+          Label_e4 <= ImgLabel(iH  ,iV-1);          
+		  elsif FirstLine='1' then   	-- Si on est sur aucun bord 
+				Label_e1 <= "ZZZZZZZZZZ";
+				Label_e2 <= "ZZZZZZZZZZ";
+				Label_e3 <= "ZZZZZZZZZZ";				
+				Label_e4 <= ImgLabel(iH  ,iV-1);					                       			
+		  elsif FirstRow='1' 		then   	 	
+		    Label_e1 <= "ZZZZZZZZZZ";
+			 Label_e2 <= ImgLabel(iH-1,iV  );
+          Label_e3 <= ImgLabel(iH-1,iV+1);
+			 Label_e4 <= "ZZZZZZZZZZ";          
+		  elsif LastRow='1' 		then 
+			 Label_e3 <= "ZZZZZZZZZZ";		  
+			 Label_e1 <= ImgLabel(iH-1,iV-1);
+          Label_e2 <= ImgLabel(iH-1,iV  );          
+          Label_e4 <= ImgLabel(iH  ,iV-1);          
+        end if;		 
+      else 					 -- Mode Lecture
+        if StatusInner='1' then   	-- Si on est sur aucun bord          
+          if (ImgLabel(iH-1,iV-1) /= "0000000000") then  ImgLabel(iH-1,iV-1) <= Label_New; end if;
+          if (ImgLabel(iH-1,iV  ) /= "0000000000") then  ImgLabel(iH-1,iV  ) <= Label_New; end if;
+          if (ImgLabel(iH-1,iV+1) /= "0000000000") then  ImgLabel(iH-1,iV+1) <= Label_New; end if;
+          if (ImgLabel(iH  ,iV-1) /= "0000000000") then  ImgLabel(iH  ,iV-1) <= Label_New; end if;
+          ImgLabel(iH  ,iV  ) <= Label_New;
+		  elsif FirstLine='1' 	then   	
+			 if (ImgLabel(iH  ,iV-1) /= "0000000000") then  ImgLabel(iH  ,iV-1) <= Label_New; end if;			
+			 ImgLabel(iH  ,iV  ) <= Label_New;
+		  elsif UpLeftCorner='1' 	then   	
+			 ImgLabel(iH  ,iV  ) <= Label_New;
+		  elsif FirstRow='1' 		then   	 	
+			 if (ImgLabel(iH-1,iV  ) /= "0000000000") then  ImgLabel(iH-1,iV  ) <= Label_New; end if;
+          if (ImgLabel(iH-1,iV+1) /= "0000000000") then  ImgLabel(iH-1,iV+1) <= Label_New; end if;
+          ImgLabel(iH  ,iV  ) <= Label_New;						
+		  elsif LastRow='1' 		then   	 	
+			 if (ImgLabel(iH-1,iV-1) /= "0000000000") then  ImgLabel(iH-1,iV-1) <= Label_New; end if;
+          if (ImgLabel(iH-1,iV  ) /= "0000000000") then  ImgLabel(iH-1,iV  ) <= Label_New; end if;
+          if (ImgLabel(iH  ,iV-1) /= "0000000000") then  ImgLabel(iH  ,iV-1) <= Label_New; end if;
+          ImgLabel(iH  ,iV  ) <= Label_New;						
+		end if;
         end if;
+		else 
+			if rW='0' then    
+				Label_e1 <= ImgLabel(iH,iV);
+				Label_e2 <= "ZZZZZZZZZZ";
+				Label_e3 <= "ZZZZZZZZZZ";
+				Label_e4 <= "ZZZZZZZZZZ";
+			else 
+				ImgLabel(iH  ,iV  ) <= Label_New;			 
+				Label_e1 <= ImgLabel(iH,iV);
+				Label_e2 <= "ZZZZZZZZZZ";
+				Label_e3 <= "ZZZZZZZZZZ";
+				Label_e4 <= "ZZZZZZZZZZ";
+			end if;
       end if;
-    end if;
-  end process;
-
-  Col <= C_Add;
-  Lig <= L_Add;
-  LastRow <= SigLastRow;
-  LastPixel <= SigLastPixel;
-
-  PxValOut <= PxVal; 
+    end if;  
+  end process manager;
 end Behavioral;
 
