@@ -17,23 +17,20 @@
 \tikzset{ckwire/.style 2 args={-open triangle 60,shorten >=-5pt,},postaction={decorate}}
 \tikzset{Entity/.style 2 args={shape = rectangle,rounded corners=1pt,draw=black, thick,minimum width={1.05*#1 em},minimum height={#2 em},text centered}}
 \begin{tikzpicture}
-\node[text depth=3.7cm,anchor=north east,Entity={6.5}{12}] (InputGate) at (0,0) {InputGate};
-\node[right] (Clk) at (-2.4,-0.9) {Clk};
-\draw[wire] (-3.6,-0.9) -- (Clk);\node[right] (PxClk) at (-2.4,-1.4) {PxClk};
-\draw[wire] (-3.6,-1.4) -- (PxClk);\node[right] (PxVal) at (-2.4,-1.9) {PxVal};
-\draw[wire] (-3.6,-1.9) -- (PxVal);\node[left] (PxValOut) at (0,-0.9) {PxValOut};
-\draw[wire] (PxValOut) -- (1.2,-0.9);
-\node[left] (Col) at (0,-1.4) {Col};
-\draw[bus={9}] (Col) -- (1.2,-1.4);
-\node[left] (Lig) at (0,-1.9) {Lig};
-\draw[bus={9}] (Lig) -- (1.2,-1.9);
-\node[left] (StatusInner) at (0,-2.4) {StatusInner};
-\draw[wire] (StatusInner) -- (1.2,-2.4);
-\node[left] (FirstLine) at (0,-2.9) {FirstLine};
-\draw[wire] (FirstLine) -- (1.2,-2.9);
-\node[left] (FirstRow) at (0,-3.4) {FirstRow};
-\draw[wire] (FirstRow) -- (1.2,-3.4);
-\node[left] (LastRow) at (0,-3.9) {LastRow};
-\draw[wire] (LastRow) -- (1.2,-3.9);
+\node[text depth=2.3cm,anchor=north east,Entity={14}{7.3}] (Ordonnanceur) at (0,0) {Ordonnanceur};
+\draw[wire] (-6,-0.9) -- (Clk);
+\node[right] (Clk) at (-5,-0.9) {Clk};
+\draw[wire] (-6.2,-1.4) -- (PxClk);
+\node[right] (PxClk) at (-5,-1.4) {PxClk};
+\draw[wire] (-6.2,-1.9) -- (PxVal);
+\node[right] (PxVal) at (-5,-1.9) {PxVal};
+\node[left] (rW) at (0,-0.9) {rW};
+\draw[wire] (rW) -- (1.2,-0.9);
+\node[left] (NextPixel) at (0,-1.4) {NextPixel};
+\draw[wire] (NextPixel) -- (1.2,-1.4);
+\node[left] (EnableMemory) at (0,-1.9) {EnableMemory};
+\draw[wire] (EnableMemory) -- (1.2,-1.9);
+\node[left] (EnableCriteriumEvaluation) at (0,-2.4) {EnableCriteriumEvaluation};
+\draw[wire] (EnableCriteriumEvaluation) -- (1.2,-2.4);
 \end{tikzpicture}
 \end{document}

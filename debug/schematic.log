@@ -1,10 +1,19 @@
-This is LuaTeX, Version beta-0.70.2-2012070300 (TeX Live 2012/Debian) (format=lualatex 2013.2.25)  10 JUN 2013 10:05
+This is LuaTeX, Version beta-0.70.2-2012070300 (TeX Live 2012/Debian) (format=lualatex 2013.5.19)  20 JUN 2013 15:59
  restricted \write18 enabled.
-**test.tex
-(./test.tex
+**schematic.tex
+(./schematic.tex
 LaTeX2e <2011/06/27>
 LuaTeX adaptation of babel <v3.8m-luatex-1.5> and hyphenation patterns for engl
-ish, dumylang, nohyphenation, loaded.
+ish, dumylang, nohyphenation, ethiopic, farsi, arabic, pinyin, croatian, bulgar
+ian, ukrainian, russian, slovak, czech, danish, dutch, usenglishmax, ukenglish,
+ finnish, french, basque, ngerman, german, swissgerman, ngerman-x-2012-05-30, g
+erman-x-2012-05-30, monogreek, greek, ibycus, ancientgreek, hungarian, bengali,
+ tamil, hindi, telugu, gujarati, sanskrit, malayalam, kannada, assamese, marath
+i, oriya, panjabi, italian, latin, latvian, lithuanian, mongolian, mongolianlmc
+, nynorsk, bokmal, indonesian, esperanto, coptic, welsh, irish, interlingua, se
+rbian, serbianc, slovenian, friulan, romansh, estonian, romanian, armenian, upp
+ersorbian, turkish, afrikaans, icelandic, kurmanji, polish, portuguese, galicia
+n, catalan, spanish, swedish, thai, loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/standalone/standalone.cls
 Document Class: standalone 2012/05/20 v1.1a Class to compile TeX sub-files stan
 dalone
@@ -1540,7 +1549,7 @@ LaTeX Font Info:    Encoding `OMX' has changed to `EU2' for symbol font
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  OMX/cmex/m/n --> EU2/AsanaMath(2)/bx/n on input line 10
 .
- (./test.aux)
+ (./schematic.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
@@ -1656,22 +1665,22 @@ atn)
 luaotfload | load font: font family='aegyptus', subfamily='regular' found: Aegy
 ptus313.ttf [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./test.aux) )
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./schematic.aux) )
 
 Here is how much of LuaTeX's memory you used:
- 30756 strings out of 495091
+ 30734 strings out of 494125
  125177,794899 words of node,token memory allocated
- 10242 words of node memory still in use:
-   155 hlist, 2 vlist, 2 rule, 18 disc, 362 glue, 1 kern, 153 glyph, 1125 attri
-bute, 84 glue_spec, 979 attribute_list, 1 write, 529 pdf_literal, 18 pdf_colors
-tack nodes
-   avail lists: 1:53,2:21,3:531,4:402,5:3,6:161,7:2,8:3,9:375,10:971,11:512,12:
+ 6698 words of node memory still in use:
+   107 hlist, 2 vlist, 2 rule, 14 disc, 214 glue, 1 kern, 127 glyph, 725 attrib
+ute, 66 glue_spec, 600 attribute_list, 1 write, 311 pdf_literal, 8 pdf_colorsta
+ck nodes
+   avail lists: 1:53,2:21,3:313,4:244,5:3,6:135,7:2,8:3,9:423,10:975,11:512,12:
 228
- 33185 multiletter control sequences out of 65536+200000
+ 33359 multiletter control sequences out of 65536+200000
  25 fonts using 5641039 bytes
- 56i,7n,69p,1036b,989s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 56i,7n,69p,1041b,983s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/fonts/truetype/ttf-ancient-scripts/Aegyptus313.ttf>
-Output written on test.pdf (1 page, 13816 bytes).
+Output written on schematic.pdf (1 page, 13133 bytes).
 
 PDF statistics: 18 PDF objects out of 1000 (max. 8388607)
  11 compressed objects within 1 object stream
