@@ -153,7 +153,9 @@ void FileManager::CleanUpNameAndType(QString *Name,QString *Type) {
     Type->remove("(");
     Type->remove(")");
     Type->remove(";");
+    Type->remove("\t");
     *Type = Type->toUpper();
+
 }
 
 
