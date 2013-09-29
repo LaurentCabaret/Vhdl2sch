@@ -28,3 +28,5 @@ HEADERS  += mainwindow.h \
     filemanager.h
 
 FORMS    += mainwindow.ui
+
+QMAKE_CXXFLAGS += -O3 -finline-small-functions -momit-leaf-frame-pointer

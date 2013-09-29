@@ -17,42 +17,14 @@
 \tikzset{ckwire/.style 2 args={-open triangle 60,shorten >=-5pt,},postaction={decorate}}
 \tikzset{Entity/.style 2 args={shape = rectangle,rounded corners=1pt,draw=black, thick,minimum width={1.05*#1 em},minimum height={#2 em},text centered}}
 \begin{tikzpicture}
-\node[text depth=6.844cm,anchor=north east,Entity={7}{21.9}] (ImageMemoryManager) at (0,0) {ImageMemoryManager};
-\node[right] (Clk) at (-2.6,-0.9) {Clk};
-\draw[wire] (-3.793,-0.9) -- (Clk);
-\node[right] (PxClk) at (-2.6,-1.4) {PxClk};
-\draw[wire] (-3.793,-1.4) -- (PxClk);
-\node[right] (rW) at (-2.6,-1.9) {rW};
-\draw[wire] (-3.793,-1.9) -- (rW);
-\node[right] (Col) at (-2.6,-2.4) {Col};
-\draw[bus={Wsize}] (-3.793,-2.4) -- (Col);
-\node[right] (Lig) at (-2.6,-2.9) {Lig};
-\draw[bus={Hsize}] (-3.793,-2.9) -- (Lig);
-\node[right] (En) at (-2.6,-3.4) {En};
-\draw[wire] (-3.793,-3.4) -- (En);
-\node[right] (StatusInner) at (-2.6,-3.9) {StatusInner};
-\draw[wire] (-3.793,-3.9) -- (StatusInner);
-\node[right] (UpLeftCorner) at (-2.6,-4.4) {UpLeftCorner};
-\draw[wire] (-3.793,-4.4) -- (UpLeftCorner);
-\node[right] (FirstLine) at (-2.6,-4.9) {FirstLine};
-\draw[wire] (-3.793,-4.9) -- (FirstLine);
-\node[right] (FirstRow) at (-2.6,-5.4) {FirstRow};
-\draw[wire] (-3.793,-5.4) -- (FirstRow);
-\node[right] (LastRow) at (-2.6,-5.9) {LastRow};
-\draw[wire] (-3.793,-5.9) -- (LastRow);
-\node[right] (LastPixel) at (-2.6,-6.4) {LastPixel};
-\draw[wire] (-3.793,-6.4) -- (LastPixel);
-\node[right] (LabelNew) at (-2.6,-6.9) {LabelNew};
-\draw[bus={Size}] (-3.793,-6.9) -- (LabelNew);
-\node[right] (FirstPass) at (-2.6,-7.4) {FirstPass};
-\draw[wire] (-3.793,-7.4) -- (FirstPass);
-\node[left] (LabelE1) at (0,-0.9) {LabelE1};
-\draw[bus={Size}] (LabelE1) -- (1.2,-0.9);
-\node[left] (LabelE2) at (0,-1.4) {LabelE2};
-\draw[bus={Size}] (LabelE2) -- (1.2,-1.4);
-\node[left] (LabelE3) at (0,-1.9) {LabelE3};
-\draw[bus={Size}] (LabelE3) -- (1.2,-1.9);
-\node[left] (LabelE4) at (0,-2.4) {LabelE4};
-\draw[bus={Size}] (LabelE4) -- (1.2,-2.4);
+\node[text depth=1.5625cm,anchor=north east,Entity={5.5}{5}] (RxSystem) at (0,0) {RxSystem};
+\node[right] (Clk) at (-2.037,-0.9) {Clk};
+\draw[wire] (-3.237,-0.9) -- (Clk);
+\node[right] (Rx) at (-2.037,-1.4) {Rx};
+\draw[wire] (-3.237,-1.4) -- (Rx);
+\node[left] (Data) at (0,-0.9) {Data};
+\draw[bus={8}] (Data) -- (1.2,-0.9);
+\node[left] (DataRdy) at (0,-1.4) {DataRdy};
+\draw[wire] (DataRdy) -- (1.2,-1.4);
 \end{tikzpicture}
 \end{document}

@@ -115,7 +115,7 @@ QString Entity::GetTikzPreamble()
 QString Entity::GetEntityDescription()
 {
     QString entityDescription = "";
-    entityDescription += QString("\\node[text depth=") + QString::number(height/3.2,'g',4) + QString("cm,anchor=north east,Entity={")  + QString::number(width*1,'g',4) + QString("}{") + QString::number(height,'g',3) + QString("}] (") + this->name + ") at (0,0) {" + this->name  + "};\n";
+    entityDescription += QString("\\node[text depth=") + QString::number(height/3.2,'g',5) + QString("cm,anchor=north east,Entity={")  + QString::number(width*1,'g',4) + QString("}{") + QString::number(height,'g',3) + QString("}] (") + this->name + ") at (0,0) {" + this->name  + "};\n";
     return entityDescription ;
 }
 
@@ -141,12 +141,11 @@ void Entity::AdjustWidth() {
         i++;
     }
 
-    width = (float)(globalsize)*0.5+1;// - (float)(labelsize/2);
+    width = (float)((globalsize)*0.500+1);// - (float)(labelsize/2);
 }
 
 
 void Entity::AdjustSize() {
     AdjustHeight();
     AdjustWidth();
-
 }

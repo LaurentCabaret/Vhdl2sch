@@ -1,19 +1,10 @@
-This is LuaTeX, Version beta-0.70.2-2012070300 (TeX Live 2012/Debian) (format=lualatex 2013.4.4)  27 SEP 2013 13:15
+This is LuaTeX, Version beta-0.70.2-2012070300 (TeX Live 2012/Debian) (format=lualatex 2013.7.7)  29 SEP 2013 08:58
  restricted \write18 enabled.
 **schematic.tex
 (./schematic.tex
 LaTeX2e <2011/06/27>
 LuaTeX adaptation of babel <v3.8m-luatex-1.5> and hyphenation patterns for engl
-ish, dumylang, nohyphenation, ethiopic, farsi, arabic, pinyin, croatian, bulgar
-ian, ukrainian, russian, slovak, czech, danish, dutch, usenglishmax, ukenglish,
- finnish, french, basque, ngerman, german, swissgerman, ngerman-x-2012-05-30, g
-erman-x-2012-05-30, monogreek, greek, ibycus, ancientgreek, hungarian, bengali,
- tamil, hindi, telugu, gujarati, sanskrit, malayalam, kannada, assamese, marath
-i, oriya, panjabi, italian, latin, latvian, lithuanian, mongolian, mongolianlmc
-, nynorsk, bokmal, indonesian, esperanto, coptic, welsh, irish, interlingua, se
-rbian, serbianc, slovenian, friulan, romansh, estonian, romanian, armenian, upp
-ersorbian, turkish, afrikaans, icelandic, kurmanji, polish, portuguese, galicia
-n, catalan, spanish, swedish, thai, loaded.
+ish, dumylang, nohyphenation, french, basque, thai, loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/standalone/standalone.cls
 Document Class: standalone 2012/05/20 v1.1a Class to compile TeX sub-files stan
 dalone
@@ -1182,7 +1173,7 @@ Variant \seq_if_in:NVTF already defined; not changing it on line 51
 /usr/share/texlive/texmf-dist/tex/lualatex/lualatex-math/lualatex-math.sty
 Package: lualatex-math 2011/09/18 v0.3b Patches for mathematics typesetting wit
 h LuaLaTeX
-(/usr/share/texmf/tex/latex/etoolbox/etoolbox.sty
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2011/01/03 v2.1 e-TeX tools for LaTeX
 \etb@tempcnta=\count361
 )
@@ -1534,19 +1525,19 @@ ptus313.ttf [1
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./schematic.aux) )
 
 Here is how much of LuaTeX's memory you used:
- 30770 strings out of 494125
+ 30668 strings out of 495042
  125177,794899 words of node,token memory allocated
- 11272 words of node memory still in use:
-   167 hlist, 2 vlist, 2 rule, 21 disc, 386 glue, 1 kern, 195 glyph, 1261 attri
-bute, 81 glue_spec, 1073 attribute_list, 1 write, 561 pdf_literal, 18 pdf_color
-stack nodes
-   avail lists: 1:53,2:21,3:563,4:426,5:3,6:203,7:2,8:3,9:363,10:968,11:512,12:
-228
- 33395 multiletter control sequences out of 65536+200000
+ 2748 words of node memory still in use:
+   47 hlist, 2 vlist, 2 rule, 1 disc, 102 glue, 1 kern, 27 glyph, 264 attribute
+, 55 glue_spec, 238 attribute_list, 1 write, 133 pdf_literal, 6 pdf_colorstack 
+nodes
+   avail lists: 1:52,2:21,3:135,4:130,5:3,6:35,7:2,8:3,9:483,10:988,11:512,12:2
+28
+ 33111 multiletter control sequences out of 65536+200000
  25 fonts using 5641039 bytes
- 56i,7n,69p,1041b,989s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 56i,7n,69p,1041b,983s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/fonts/truetype/ttf-ancient-scripts/Aegyptus313.ttf>
-Output written on schematic.pdf (1 page, 14440 bytes).
+Output written on schematic.pdf (1 page, 10521 bytes).
 
 PDF statistics: 18 PDF objects out of 1000 (max. 8388607)
  11 compressed objects within 1 object stream
