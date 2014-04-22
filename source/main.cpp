@@ -39,8 +39,6 @@ int main(int argc, char *argv[])
     QString Command;
     l = Fmng.inputfilename.split(".");
     system("lualatex  -interaction=batchmode schematic.tex");
-    //system("evince schematic.pdf");
     Command = "mv schematic.pdf " + l[0] + ".pdf";
-    system(qPrintable(Command));
-    //return a.exec();
+    system(qPrintable(Command));    
 }

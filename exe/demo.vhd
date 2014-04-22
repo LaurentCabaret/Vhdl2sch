@@ -1,64 +1,124 @@
+-- Module Name:    InputGate - Behavioral 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+USE ieee.std_logic_unsigned.ALL;
 
-entity RxSystem is
-	Port(
-		Clk     : in  STD_LOGIC;
-		Data    : out STD_LOGIC_VECTOR(7 downto 0);
-		DataRdy : out STD_LOGIC;
-		Rx      : in  STD_LOGIC
-	);
-end RxSystem;
 
-architecture Behavioral of RxSystem is
-	COMPONENT ClockGenerator
-		PORT(
-			MAINCLK  : IN  std_logic;
-			TRIGGER  : IN  std_logic;
-			BAUDRATE : IN  INTEGER;
-			CLKOUT   : OUT std_logic
-		);
-	END COMPONENT;
+entity InputGate is
+  Generic (
+    wSize     :integer  := 9;
+    hSize     :integer  := 9;
+    imgWidth  : integer := 512;         -- Largeur de l'image
+    imgHeight : integer := 512);        -- Hauteur de l'image    
+  Port ( Clk            : in  STD_LOGIC;
+         PxClk          : in  STD_LOGIC;
+         PxVal          : in  STD_LOGIC;
+         PxValOut       : out  STD_LOGIC;
+         Col           	: out    std_logic_vector (wSize-1 downto 0);
+         Lig          	: out    std_logic_vector (hSize-1 downto 0);
+         StatusInner   	: out   std_logic;
+         UpLeftCorner   : out   std_logic;	 
+         FirstLine    	: out   std_logic;
+         FirstRow	: out   std_logic;
+         LastRow	: out   std_logic;
+         LastPixel 	: out   std_logic;			  
+			FirstPass 	: out   std_logic	:= '0'		  
+         );
+end InputGate;
 
-	COMPONENT RxFSM
-		PORT(
-			Clk     : in  STD_LOGIC;
-			BdClk   : in  STD_LOGIC;
-			Data    : out STD_LOGIC_VECTOR(7 downto 0);
-			Done    : out STD_LOGIC;
-			BdClkEn : out STD_LOGIC;
-			ClkMod  : out INTEGER range 0 to 3;
-			Rx      : in  STD_LOGIC
-		);
-	END COMPONENT;
+architecture Behavioral of InputGate is
+  CONSTANT LargeurBits : integer :=wSize;
+  CONSTANT HauteurBits : integer :=hSize;
+  COMPONENT AccessManager IS
 
-	signal ClkMod   : integer := 3;
-	signal BaudRate : integer := 115200;
-	signal BdClkEn  : STD_LOGIC;
-	signal BdClk    : STD_LOGIC;
+    generic (
+      hBusSize : integer range 0 to 11;
+      vBusSize : integer range 0 to 11;
+      imgWidth : integer range 0 to 1920;
+      imgHeight : integer range 0 to 1080
+      );
+
+    port (        
+      C_Add             : in    std_logic_vector (hBusSize-1 downto 0);
+      L_Add             : in    std_logic_vector (vBusSize-1 downto 0);
+      StatusInner       : out   std_logic;
+      UpLeftCorner      : out   std_logic;	 
+      FirstLine         : out   std_logic;
+      FirstRow	       : out   std_logic;
+      LastRow	       	 : out   std_logic;
+      LastPixel	       : out   std_logic
+      );
+
+  END COMPONENT;
+
+  signal CleanPxClk : std_logic :='0';
+  SIGNAL C_Add :  std_logic_vector (LargeurBits-1 downto 0) := (others=>'0');
+  SIGNAL L_Add :  std_logic_vector (HauteurBits-1 downto 0) := (others=>'0');
+  SIGNAL SigLastRow :  std_logic := '0';
+  SIGNAL SigLastPixel :  std_logic := '0';
+  SIGNAL fPass :  std_logic := '1';
+  
+  
 begin
-	with ClkMod select BaudRate <=
-		0 when 0,
-		230400 when 1,
-		115200 when 2,
-		76800 when 3;
+  AM1: AccessManager GENERIC MAP(
+    hBusSize => LargeurBits,
+    vBusSize => HauteurBits,
+    imgWidth => imgWidth,
+    imgHeight => imgHeight
+    )
+    PORT MAP(
+      C_Add 				=> C_Add,
+      L_Add 				=> L_Add,
+      StatusInner 		=> StatusInner,
+      UpLeftCorner 		=> UpLeftCorner,
+      FirstLine 			=> FirstLine,						
+      FirstRow 			=> FirstRow,
+      LastRow 				=> SigLastRow ,
+      LastPixel			=> SigLastPixel
+      );
 
-	ClkGen : ClockGenerator PORT MAP(
-			MAINCLK  => Clk,
-			TRIGGER  => BdClkEn,
-			BAUDRATE => BaudRate,
-			CLKOUT   => BdClk
-		);
 
-	RxGenerator : RxFSM PORT MAP(
-			Clk     => Clk,
-			BdClk   => BdClk,
-			Data    => Data,
-			Done    => DataRdy,
-			BdClkEn => BdClkEn,
-			ClkMod  => ClkMod,
-			Rx      => Rx
-		);
+  PxClkEventManager: process(Clk)
+    variable flag : std_logic := '1';
+  begin 
+    if Clk'Event and Clk='1' then 
+      if (PxClk = '1' and flag = '0') then CleanPxClk <='1';
+                                           flag:='1';
+      elsif PxClk = '0' then flag:='0'; 
+                             CleanPxClk <='0';
+      elsif PxClk = '1' and flag = '1' then CleanPxClk <='0';
+                                            flag:='1';
+      end if;
+    end if;
+  end process;
 
+  FirstPass <= fPass;
+  PixelCounter: process(Clk)
+   variable flag : std_logic := '1';
+	variable flagPass : std_logic := '0';
+   begin
+    if Clk'Event and Clk='1' then 
+      if CleanPxClk = '1' then 
+        if SigLastRow='1' then C_Add <= (others=>'0');
+                               if SigLastPixel ='1' then L_Add <=  (others=>'0');
+																			if flagPass = '0' then fPass <= '0';
+																										  flagPass := '1';
+																			else fPass <= '1';
+																				  flagPass := '0';
+																			end if;
+                               else L_Add <= L_Add + 1;
+                               end if;
+        else C_Add <= C_Add + 1;												
+        end if;
+      end if;
+    end if;
+  end process;
+
+  Col <= C_Add;
+  Lig <= L_Add;
+  LastRow <= SigLastRow;
+  LastPixel <= SigLastPixel;
+
+  PxValOut <= PxVal; 
 end Behavioral;
 
