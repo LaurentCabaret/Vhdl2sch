@@ -25,13 +25,15 @@ Requirements
 
 Compilation
 -----------
-  cd exe/
-  make
+    cd exe/
+    make
 
 Test
 ----
 just execute Vhdl2LatexSch
 It will produce demo.pdf
+
+    ./Vhdl2LatexSch
 
 If it is ok you now can use Vhdl2LatexSch.
 
@@ -42,7 +44,26 @@ Copy Vhdl2LatexSch to /usr/bin/ or elsewhere in your path
 Usage
 -----
 
-  Vhdl2LatexSch test.vhd 
+    Vhdl2LatexSch test.vhd 
 
-with test.vhd your file to convert
+with "test.vhd" your file to convert
+
+How to improve it
+=================
+Requirements
+------------
+qtcreator
+on debian/ubuntu
+
+    apt-get install qtcreator
+
+open the source/Vhdl2LatexSch.pro
+and configure your project to build in exe/
+
+What could be very cool to implement (help required)
+------------------------------------
+  * Auto finding of component usage and global schematic (with sub files) generation
+  * Multiple schematic theme (using keywords to select look and feel like in beamer)
+  * A clean way to install it (a package ?)
+
 
