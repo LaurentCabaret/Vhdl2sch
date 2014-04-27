@@ -51,7 +51,6 @@ QString Entity::GetLatexPreamble()
     latexPreample += QString("\\usepackage{amsfonts}\n");
     latexPreample += QString("\\usepackage{amssymb}\n");
     latexPreample += QString("\\usepackage{tikz}\n");
-    latexPreample += QString("\\usepackage{fontspec}\n");
     latexPreample += QString("\\usetikzlibrary{arrows,decorations.markings}\n");
     latexPreample += QString("\\usepackage[math-style=upright]{unicode-math}\n");
     latexPreample += QString("\\setmathfont{Asana Math} % for math symbols, can be any other OpenType math font\n");
