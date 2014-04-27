@@ -23,8 +23,11 @@ Requirements
 - QT 4.8 (not tested on 5.0 and 5.2)
 - lualatex
 - Aegyptus font installed 
+- 
     cd fonts
+
     sudo cp Aegyptus.ttf /usr/share/fonts/truetype/aegyptus/
+    
     sudo mkdir /usr/share/fonts/truetype/aegyptus
 
 
