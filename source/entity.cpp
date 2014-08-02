@@ -55,8 +55,8 @@ QString Entity::GetLatexPreamble()
     latexPreample += QString("\\usepackage[math-style=upright]{unicode-math}\n");
     latexPreample += QString("\\setmathfont{Asana Math} % for math symbols, can be any other OpenType math font\n");
     latexPreample += QString("\\begin{document}\n");
-//    latexPreample += QString("\\fontspec{Aegyptus}\n");
-    latexPreample += QString("\\fontspec{Jura}\n");
+    latexPreample += QString("\\fontspec{Aegyptus}\n");
+//    latexPreample += QString("\\fontspec{Linux Biolinum O}\n");
     return latexPreample;
 }
 

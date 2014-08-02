@@ -1,4 +1,4 @@
-This is LuaTeX, Version beta-0.70.2-2012070300 (TeX Live 2012/Debian) (format=lualatex 2013.7.15)  2 AUG 2014 23:34
+This is LuaTeX, Version beta-0.70.2-2012070300 (TeX Live 2012/Debian) (format=lualatex 2013.7.15)  2 AUG 2014 23:45
  restricted \write18 enabled.
 **schematic.tex
 (./schematic.tex
@@ -1470,72 +1470,72 @@ e
 *** you should *not* be loading the inputenc package
 *** XeTeX expects the source to be in UTF8 encoding
 *** some features of other encodings may conflict, resulting in poor output.
-luaotfload | load font: font family='jura', subfamily='regular' found: Jura-Boo
-k.ttf(load: /home/laurent/.texmf-var/luatex-cache/generic/fonts/otf/temp-jura-b
-ook.lua)
-luaotfload | load font: font family='jura', subfamily='regular' found: Jura-Boo
-k.ttf
-fontspec: script 'latn' exists in font 'JuraBook'
-fontspec: script 'latn' exists in font 'JuraBook'
-\g_fontspec_family_Jura_int=\count369
-luaotfload | load font: font family='jura', subfamily='regular' found: Jura-Boo
-k.ttf
-luaotfload | load font: font family='jura', subfamily='regular' found: Jura-Boo
-k.ttf
-luaotfload | load font: font family='jura', subfamily='bold' found: Jura-DemiBo
-ld.ttf(load: /home/laurent/.texmf-var/luatex-cache/generic/fonts/otf/temp-jura-
-demibold.lua)
-luaotfload | load font: font family='jura', subfamily='bold' found: Jura-DemiBo
-ld.ttf
-luaotfload | load font: font family='jura', subfamily='regular' found: Jura-Boo
-k.ttf(load: /home/laurent/.texmf-var/luatex-cache/generic/fonts/otf/temp-jura-m
-edium.lua)
-luaotfload | load font: font family='jura', subfamily='regular' found: Jura-Boo
-k.ttf
+luaotfload | load font: font family='aegyptus', subfamily='regular' found: Aegy
+ptus313.ttf(load: /home/laurent/.texmf-var/luatex-cache/generic/fonts/otf/temp-
+aegyptus313.lua)
+luaotfload | load font: font family='aegyptus', subfamily='regular' found: Aegy
+ptus313.ttf
+fontspec: script 'latn' exists in font 'Aegyptus'
+fontspec: script 'latn' exists in font 'Aegyptus'
+\g_fontspec_family_Aegyptus_int=\count369
+luaotfload | load font: font family='aegyptus', subfamily='regular' found: Aegy
+ptus313.ttf
+luaotfload | load font: font family='aegyptus', subfamily='regular' found: Aegy
+ptus313.ttf
+.................................................
+. fontspec info: "no-font-shape"
+. 
+. Could not resolve font Aegyptus/B (it probably doesn't exist).
+.................................................
+luaotfload | load font: font family='aegyptus', subfamily='regular' found: Aegy
+ptus313.ttf
+.................................................
+. fontspec info: "no-font-shape"
+. 
+. Could not resolve font Aegyptus/I (it probably doesn't exist).
+.................................................
+luaotfload | load font: font family='aegyptus', subfamily='regular' found: Aegy
+ptus313.ttf
+.................................................
+. fontspec info: "no-font-shape"
+. 
+. Could not resolve font Aegyptus/BI (it probably doesn't exist).
+.................................................
 .................................................
 . fontspec info: "defining-font"
 . 
-. Font family 'Jura(0)' created for font 'Jura' with options [].
+. Font family 'Aegyptus(0)' created for font 'Aegyptus' with options [].
 . 
 . This font family consists of the following shapes:
 . 
 . * 'normal' with NFSS spec.:
-. <->"name:Jura:mode=node;script=latn;language=DFLT;"
-. 
-. * 'bold' with NFSS spec.:
-. <->"name:Jura/B:mode=node;script=latn;language=DFLT;"
-. 
-. * 'italic' with NFSS spec.:
-. <->"name:Jura/I:mode=node;script=latn;language=DFLT;"
-. 
-. * 'bold italic' with NFSS spec.:
-. <->"name:Jura/BI:mode=node;script=latn;language=DFLT;"
+. <->"name:Aegyptus:mode=node;script=latn;language=DFLT;"
 .................................................
 luaotfload | load font: auto-selecting default features for script: dflt (was l
 atn)
-luaotfload | load font: font family='jura', subfamily='regular' found: Jura-Boo
-k.ttf
+luaotfload | load font: font family='aegyptus', subfamily='regular' found: Aegy
+ptus313.ttf
 luaotfload | load font: auto-selecting default features for script: dflt (was l
 atn)
-luaotfload | load font: font family='jura', subfamily='regular' found: Jura-Boo
-k.ttf [1
+luaotfload | load font: font family='aegyptus', subfamily='regular' found: Aegy
+ptus313.ttf [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./schematic.aux) )
 
 Here is how much of LuaTeX's memory you used:
- 30753 strings out of 495091
+ 30734 strings out of 495091
  125177,794899 words of node,token memory allocated
- 6768 words of node memory still in use:
-   107 hlist, 2 vlist, 2 rule, 14 disc, 214 glue, 11 kern, 127 glyph, 735 attri
-bute, 66 glue_spec, 600 attribute_list, 1 write, 311 pdf_literal, 8 pdf_colorst
-ack nodes
-   avail lists: 1:52,2:21,3:313,4:244,5:10,6:135,7:2,8:3,9:423,10:975,11:512,12
-:228
- 33173 multiletter control sequences out of 65536+200000
- 27 fonts using 2705983 bytes
+ 6698 words of node memory still in use:
+   107 hlist, 2 vlist, 2 rule, 14 disc, 214 glue, 1 kern, 127 glyph, 725 attrib
+ute, 66 glue_spec, 600 attribute_list, 1 write, 311 pdf_literal, 8 pdf_colorsta
+ck nodes
+   avail lists: 1:52,2:21,3:313,4:244,5:3,6:135,7:2,8:3,9:423,10:975,11:512,12:
+228
+ 33163 multiletter control sequences out of 65536+200000
+ 25 fonts using 5641039 bytes
  56i,7n,69p,1041b,983s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/fonts/truetype/jura/Jura-Book.ttf>
-Output written on schematic.pdf (1 page, 10615 bytes).
+</usr/share/fonts/truetype/ttf-ancient-scripts/Aegyptus313.ttf>
+Output written on schematic.pdf (1 page, 13133 bytes).
 
 PDF statistics: 18 PDF objects out of 1000 (max. 8388607)
  11 compressed objects within 1 object stream
