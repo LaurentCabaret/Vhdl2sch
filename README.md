@@ -1,10 +1,15 @@
+THIS PROGRAM IS NO LONGER MAINTENED
+========
+A python version was developped (https://github.com/LaurentCabaret/pyVhdl2Sch).
+This C++ version stays here as (dirty) reference.
+
 Vhdl2sch
 ========
 Vhdl2sch stand for VHDL to schematic converter.
 
 If you need to create a illustration schematic of your VHDL entities Vhdl2Sch is made for you.
 
-It parse your file, find the entitie and create the corespondant schematic with Latex/Tikz.
+It parse your file, find the entity and create the corespondant schematic with Latex/Tikz.
 
 Result
 ======
