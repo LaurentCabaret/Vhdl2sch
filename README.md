@@ -1,4 +1,4 @@
-THIS PROGRAM IS NO LONGER MAINTENED
+THIS PROGRAM IS NO LONGER MAINTAINED
 ========
 A python version was developped (https://github.com/LaurentCabaret/pyVhdl2Sch).
 This C++ version stays here as (dirty) reference.
